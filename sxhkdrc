@@ -1,0 +1,58 @@
+# wm independent hotkeys
+#
+super + d
+ 	dmenu_run -fn "Monospace-14-medium"
+
+# make sxhkd reload its configuration files:
+# super + Escape
+# 	pkill -USR1 -x sxhkd
+
+# #################################################################
+# Copied from common.sxhkdrc:
+
+# environment: keys reload, picom, theme, vim colors
+super + e ; {s,p,h,j,k,l}
+        { \
+        pkill -USR1 -x sxhkd, \
+        owns-picomswitch, \
+        owns-thememenu -l, \
+        owns-thememenu -d, \
+        owns-vimmenu -d,\
+        owns-vimmenu -l,\
+        }
+
+# terminal: alsamixer volume, htop, keys, ranger, st, pulsemixer volume
+super + x ; {a,h,k,r,s,v}
+	{ \
+	$TERMINAL -e alsamixer, \
+	$TERMINAL -e htop, \
+	$TERMINAL -e nvim ~/.config/awesome/sxhkdrc, \
+	$TERMINAL -e ranger, \
+	st, \
+	$TERMINAL -e pulsemixer \
+	}
+
+# gui: bitwarden, calibre,firefox, firefox no-history, chromium(g), kodi, lxappearance, nitrogen, pcManfm, firefox Personal, sabnzbd, pavucontrol Volume
+super + z ; {b,c,d,f,g,k,l,n,m,p,s,v} 
+	{ \
+	bitwarden-desktop, \
+	calibre, \
+	firefox -P default, \
+	firefox -P no-history, \
+	chromium, \
+	kodi, \
+	lxappearance, \
+	nitrogen, \
+	pcmanfm, \
+	firefox -P personal, \
+	sabnzbd, \
+	pavucontrol \
+ 	}
+
+# Control the laptop's screen brightness (requires `xbacklight`).
+XF86MonBrightness{Down,Up}
+	xbacklight {-dec 10,-inc 10}
+
+# Speaker/output volume.  Requires `amixer` and dedicated keys.
+XF86Audio{Mute,LowerVolume,RaiseVolume}
+	amixer set Master {toggle,5%-,5%+}
